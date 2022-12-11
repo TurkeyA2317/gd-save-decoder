@@ -1,131 +1,153 @@
-interface KVNumberString {
-    [key: number]: string
-}
-
-interface KVNumber {
-    [key: number]: number
-}
-
-interface GDSavekCEK{
-    kCEK: number
-}
-
-export interface GDSaveDailyReward extends GDSavekCEK{
-    1: number,
-    2: number,
-    3: any
-}
-
-export interface GDSaveAchievements {
-    [key: string]: string
-}
-
-export interface GDSaveBronzeUserCoins {
-    [key: string]: string
-}
-
-export interface GDSaveCompletedLevels {
-    [key: string]: "0" | "1"
-}
-
-export interface GDSaveCreatedLevelFolders extends KVNumberString {}
-export interface GDSaveDailyProgress extends KVNumberString {}
-export interface GDSaveDailyStars extends KVNumber {}
-export interface GDSaveLevelStars extends KVNumber {}
-
-export interface GDSaveDailyRewards{
-    [key: string]: GDSaveDailyReward
-}
-
-export interface GDSaveOnlineLevel extends GDSavekCEK{
-    attempts: number,
-    id: number,
-    jumps: number,
-    percentage: number,
-    practicePercentage: number,
-    manaOrbPercentage?: number,
-    stars?: number,
-
-    playable?: boolean,
-}
-
-export interface GDSaveOnlineLevelSaved extends GDSaveOnlineLevel{
-    accountID: number,
-    author: string,
-    binaryVersion: number,
-    copiedID: number,
-    downloads: number,
-    extraString: string,
-    gameVersion: number,
-    length: string,
-    levelType: string,
-    likes: number,
-    name: string,
-    objects: number,
-    officialSongID: number,
+/**
+ * A weakly typed representation of the parsed Save file.
+ * Contains everything, but is messy.
+ */
+export interface GDRawSave {
+    valueKeeper: any,
+    unlockValueKeeper: any,
+    customObjects: any,
+    bgVolume: number,
+    sfxVolume: number,
+    playerUDID: string,
+    playerName: string,
     playerID: number,
-    ratingScore1: number,
-    ratingScore2: number,
-    requestedStars: number,
-    savedLevelIndex: number,
-    version: number,
-    scores: string,
-    leaderboardPercentage: number,
-    leaderboardValid: boolean
-}
-
-export interface GDSaveOnlineLevels {
-    [key: number]: GDSaveOnlineLevel | GDSaveOnlineLevelSaved
-}
-
-export interface GDStats {
-    jumps: number,
-    attempts: number,
-    officialLevelsCompleted: number,
-    onlineLevelsCompleted: number,
-    demons: number,
-    stars: number,
-    mapPacks: number,
-    coins: number,
-    destroyedPlayers: number,
-    likedLevels: number,
-    ratedLevels: number,
-    userCoins: number,
-    diamonds: number,
-    orbs: number,
-    completedDailies: number,
-    fireShards: number,
-    iceShards: number,
-    poisonShards: number,
-    shadowShards: number,
-    lavaShards: number,
-    demonKeys: number,
-    totalOrbs: number,
-}
-
-export interface GDSave {
+    playerFrame: number,
+    playerShip: number,
+    playerBall: number,
+    playerBird: number,
+    playerDart: number,
+    playerRobot: number,
+    playerSpider: number,
+    playerColor: number,
+    playerColor2: number,
+    playerStreak: number,
+    playerDeathEffect: number,
+    achievements: any,
+    officialLevels: any,
+    onlineLevels: any,
+    timelyLevels: any,
+    dailyID: number,
+    weeklyID: number,
+    gauntlets: any,
+    recentlyPlayed: any,
+    reportedLevels: any,
+    likes: any,
+    ratedLevels: any,
+    ratedDemons: any,
+    followedAccounts: any,
+    enabledSearchFilters: any,
+    levelFolders: any,
+    createdLevelFolders: any,
+    stats: any,
+    completedLevels: any,
+    userCoins: any,
+    bronzeUserCoins: any,
+    mapPackStars: any,
+    shopPurchases: any,
+    levelProgress: any,
+    levelStars: any,
+    officialLevelProgress: any,
+    dailyProgress: any,
+    dailyStars: any,
+    gauntletProgress: any,
+    dailyProgress2: any,
+    dailyRewards: any,
+    gdWorldRewards: any,
+    weeklyRewards: any,
+    quests: any,
+    queuedQuests: any,
+    questRewards: any,
+    treasureRoomRewards: any,
+    totalDemonKeys: number,
+    rewards: any,
+    songInfo: any,
+    songPriority: number,
+    username: string,
     accountID: number,
-    achievements: GDSaveAchievements,
-    bgVolume: number
-    binaryVersion: number
-    bootups: number,
-    bronzeUserCoins: GDSaveBronzeUserCoins,
-    clickedEditor: boolean
-    clickedIconKit: boolean
-    clickedName: boolean
+    keybinds: any,
+    keybinds2: any,
+    showSongMarkers: boolean,
+    showProgressBar: boolean,
+    clickedIconKit: boolean,
+    clickedEditor: boolean,
+    clickedName: boolean,
     clickedPractice: boolean,
-    completedLevels: GDSaveCompletedLevels,
-    createdLevelFolders: GDSaveCreatedLevelFolders,
-    customObjects: string, //can this be an object when there are some?
-    dailyID: string,
-    dailyProgress: GDSaveDailyProgress,
-    dailyProgress2: GDSaveDailyProgress,
-    dailyRewards: GDSaveDailyRewards,
-    dailyStars: GDSaveDailyStars,
+    showedEditorGuide: boolean,
+    showedRateStarDialog: boolean,
+    showedLowDetailDialog: boolean,
+    bootups: number,
+    hasRatedGame: boolean,
+    binaryVersion: number,
+    resolution: number
+}
 
-    levelStars: GDSaveLevelStars,
+export interface GDSavePlayerIconKit{
+    cube: number,
+    ship: number,
+    ball: number,
+    bird: number,
+    dart: number,
+    robot: number,
+    spider: number,
 
-    stats: GDStats,
+    color1: number,
+    color2: number,
 
-    onlineLevels: GDSaveOnlineLevels
+    deathEffect: number
+}
+
+export interface GDSavePlayer{
+    username: string,
+    /** ID of registered player */
+    accountID?: number,
+    /** Every Player gets a PlayerID, green and yellow players */
+    playerID: number,
+    udid: string,
+
+    iconKit: GDSavePlayerIconKit
+}
+
+export interface GDSaveEvents {
+    /** If Player clicked rate on Google Play / iTunes */
+    hasRatedGame: boolean,
+    clickedEditor: boolean,
+    clickedIconKit: boolean,
+    clickedPractice: boolean,
+    /** In-Game determines if "What's your name?" is shown */
+    clickedName: boolean,
+
+    bootups: number,
+
+    showedEditorGuide: boolean,
+    showedLowDetailDialog: boolean,
+    showedRateStarDialog: boolean
+}
+
+export interface GDSaveStats {
+    attempts: number,
+    jumps: number,
+    coins: number,
+    stars: number,
+    demons: number,
+    diamonds: number,
+    levels: {
+        rated: number,
+        liked: number
+    },
+    completed: {
+        dailies: number,
+        official: number,
+        online: number,
+        mapPacks: number
+    },
+    shards: {
+        fire: number,
+        lava: number,
+        ice: number,
+        poison: number,
+        shadow: number
+    },
+    orbs: number,
+    totalOrbs: number,
+    destroyedPlayers: number
 }

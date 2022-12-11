@@ -2,12 +2,15 @@ import GDLevel from "./gdlevel";
 import { GDRawSave, GDSaveEvents, GDSavePlayer, GDSaveStats } from "./models";
 
 export default class GDSave{
+    raw: GDRawSave;
     player: GDSavePlayer;
     events: GDSaveEvents;
     stats: GDSaveStats;
     levels: GDLevel[] = [];
 
     constructor(raw: GDRawSave){
+        this.raw = raw;
+
         this.player = {
             playerID: raw.playerID,
             accountID: raw.accountID,

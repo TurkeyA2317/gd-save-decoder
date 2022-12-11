@@ -170,12 +170,12 @@ function postProcessJSON(save: any){
     return save;
 }
 
-export async function saveToJSON(blob: Blob){
+async function saveToJSON(blob: Blob){
     const xml = parseXMLString(await saveToXML(blob));
 
     return postProcessJSON(xmlToJson(xml)) as GDRawSave;
 }
 
-export async function saveToGDSave(blob: Blob) {
+export async function readSave(blob: Blob) {
     return new GDSave(await saveToJSON(blob));
 }

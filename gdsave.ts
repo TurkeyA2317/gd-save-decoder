@@ -1,9 +1,11 @@
+import GDLevel from "./gdlevel";
 import { GDRawSave, GDSaveEvents, GDSavePlayer, GDSaveStats } from "./models";
 
 export default class GDSave{
     player: GDSavePlayer;
     events: GDSaveEvents;
-    stats: GDSaveStats
+    stats: GDSaveStats;
+    levels: GDLevel[] = [];
 
     constructor(raw: GDRawSave){
         this.player = {
@@ -65,5 +67,54 @@ export default class GDSave{
             stars: raw.stats.stars,
             totalOrbs: raw.stats.totalOrbs
         };
+
+        for(const k of Object.keys(raw.onlineLevels)){
+            const lvl = raw.onlineLevels[k];
+            this.levels.push(new GDLevel({
+                id: lvl.id,
+                percentage: lvl.percentage,
+                stars: lvl.stars
+            }));
+        }
+
+        for(const k of Object.keys(raw.gauntlets)){
+            const lvl = raw.gauntlets[k];
+            this.levels.push(new GDLevel({
+                id: lvl.id,
+                percentage: lvl.percentage,
+                stars: lvl.stars
+            }));
+        }
+
+        for(const k of Object.keys(raw.officialLevels)){
+            const lvl = raw.officialLevels[k];
+            this.levels.push(new GDLevel({
+                id: lvl.id,
+                percentage: lvl.percentage,
+                stars: lvl.stars
+            }));
+        }
+
+        for(const k of Object.keys(raw.dailyStars)){
+            const stars = raw.dailyStars[k];
+            const percentage = parseInt(raw.dailyProgress[k] ?? 0);
+            this.levels.push(new GDLevel({
+                id: parseInt(k),
+                percentage: percentage,
+                stars: stars
+            }));
+        }
+    }
+
+    get completedLevels(){
+        return this.levels.filter(lvl => lvl.isCompleted);
+    }
+
+    get ratedLevels(){
+        return this.levels.filter(lvl => lvl.isRated);
+    }
+
+    get unratedLevels(){
+        return this.levels.filter(lvl => !lvl.isRated);
     }
 }

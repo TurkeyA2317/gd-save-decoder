@@ -6,7 +6,7 @@
 
 import { Base64 } from 'js-base64';
 import pako from "pako";
-import type { GDSave } from './models';
+import type { GDRawSave } from './models';
 import { difficultyList, gameKeys, isKeyRedefinition, levelKeys, statKeys, type KeyRedefintion } from './savekeys';
 
 const K = 11; // GD save encryption key [0xb]
@@ -172,5 +172,5 @@ function postProcessJSON(save: any){
 export async function saveToJSON(blob: Blob){
     const xml = parseXMLString(await saveToXML(blob));
 
-    return postProcessJSON(xmlToJson(xml)) as GDSave;
+    return postProcessJSON(xmlToJson(xml)) as GDRawSave;
 }

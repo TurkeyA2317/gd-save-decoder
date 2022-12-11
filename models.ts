@@ -80,3 +80,45 @@ export interface GDRawSave {
     binaryVersion: number,
     resolution: number
 }
+
+export interface GDSavePlayerIconKit{
+    cube: number,
+    ship: number,
+    ball: number,
+    bird: number,
+    dart: number,
+    robot: number,
+    spider: number,
+
+    color1: number,
+    color2: number,
+
+    deathEffect: number
+}
+
+export interface GDSavePlayer{
+    username: string,
+    /** ID of registered player */
+    accountID?: number,
+    /** Every Player gets a PlayerID, green and yellow players */
+    playerID: number,
+    udid: string,
+
+    iconKit: GDSavePlayerIconKit
+}
+
+export interface GDSaveEvents {
+    /** If Player clicked rate on Google Play / iTunes */
+    hasRatedGame: boolean,
+    clickedEditor: boolean,
+    clickedIconKit: boolean,
+    clickedPractice: boolean,
+    /** In-Game determines if "What's your name?" is shown */
+    clickedName: boolean,
+    
+    bootups: number,
+
+    showedEditorGuide: boolean,
+    showedLowDetailDialog: boolean,
+    showedRateStarDialog: boolean
+}

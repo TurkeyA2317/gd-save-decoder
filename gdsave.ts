@@ -1,4 +1,4 @@
-import GDLevel from "./gdlevel";
+import GDLevel, { DemonType } from "./gdlevel";
 import { GDRawSave, GDSaveEvents, GDSavePlayer, GDSaveStats } from "./models";
 
 export default class GDSave{
@@ -71,40 +71,30 @@ export default class GDSave{
             totalOrbs: raw.stats.totalOrbs
         };
 
-        for(const k of Object.keys(raw.onlineLevels)){
-            const lvl = raw.onlineLevels[k];
-            this.levels.push(new GDLevel({
-                id: lvl.id,
-                percentage: lvl.percentage,
-                stars: lvl.stars
-            }));
-        }
-
-        for(const k of Object.keys(raw.gauntlets)){
-            const lvl = raw.gauntlets[k];
-            this.levels.push(new GDLevel({
-                id: lvl.id,
-                percentage: lvl.percentage,
-                stars: lvl.stars
-            }));
-        }
-
-        for(const k of Object.keys(raw.officialLevels)){
-            const lvl = raw.officialLevels[k];
-            this.levels.push(new GDLevel({
-                id: lvl.id,
-                percentage: lvl.percentage,
-                stars: lvl.stars
-            }));
+        for(const type of ["onlineLevels", "gauntlets", "officialLevels"]){
+            for(const k of Object.keys(raw[type])){
+                const lvl = raw[type][k];
+                const demonType = lvl.demonType ?? (lvl.demon ? DemonType.HARD : null);
+                this.levels.push(new GDLevel({
+                    id: lvl.id,
+                    percentage: lvl.percentage,
+                    stars: lvl.stars,
+                    demonType
+                }));
+            }
         }
 
         for(const k of Object.keys(raw.dailyStars)){
             const stars = raw.dailyStars[k];
             const percentage = parseInt(raw.dailyProgress[k] ?? 0);
+
+            const lvl = this.levels.find(lvl => lvl.id === parseInt(k));
+            const demonType = lvl ? lvl.demonType ?? undefined : undefined;
             this.levels.push(new GDLevel({
                 id: parseInt(k),
                 percentage: percentage,
-                stars: stars
+                stars: stars,
+                demonType
             }));
         }
     }
@@ -119,5 +109,9 @@ export default class GDSave{
 
     get unratedLevels(){
         return this.levels.filter(lvl => !lvl.isRated);
+    }
+
+    get demonLevels(){
+        return this.levels.filter(lvl => lvl.isDemon);
     }
 }

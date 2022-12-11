@@ -5,7 +5,7 @@
   "author": "VeproGames",
   "license": "MIT",
   "exports": {
-    ".": ["./index.ts", "./gdlevel.ts"]
+    ".": "./index.ts"
   },
   "dependencies": {
     "js-base64": "^3.7.3",

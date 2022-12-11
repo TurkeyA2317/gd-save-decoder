@@ -115,10 +115,39 @@ export interface GDSaveEvents {
     clickedPractice: boolean,
     /** In-Game determines if "What's your name?" is shown */
     clickedName: boolean,
-    
+
     bootups: number,
 
     showedEditorGuide: boolean,
     showedLowDetailDialog: boolean,
     showedRateStarDialog: boolean
+}
+
+export interface GDSaveStats {
+    attempts: number,
+    jumps: number,
+    coins: number,
+    stars: number,
+    demons: number,
+    diamonds: number,
+    levels: {
+        rated: number,
+        liked: number
+    },
+    completed: {
+        dailies: number,
+        official: number,
+        online: number,
+        mapPacks: number
+    },
+    shards: {
+        fire: number,
+        lava: number,
+        ice: number,
+        poison: number,
+        shadow: number
+    },
+    orbs: number,
+    totalOrbs: number,
+    destroyedPlayers: number
 }

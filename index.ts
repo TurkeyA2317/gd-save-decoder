@@ -7,7 +7,7 @@
 import { Base64 } from 'js-base64';
 import pako from "pako";
 import type { GDSave } from './models';
-import { difficultyList, gameKeys, isKeyRedefinition, levelKeys, type KeyRedefintion } from './savekeys';
+import { difficultyList, gameKeys, isKeyRedefinition, levelKeys, statKeys, type KeyRedefintion } from './savekeys';
 
 const K = 11; // GD save encryption key [0xb]
 
@@ -147,12 +147,23 @@ function xmlToJson(xml: Element){
  * 
  * unused right now
  */
-function postProcessJSON(save: GDSave){
-    if(save.onlineLevels){
-        for(const k of Object.keys(save.onlineLevels)){
-            const level = save.onlineLevels[k];
-            level.ratingScore1 = difficultyList[level.ratingScore1] ?? "Unknown";
-            level.ratingScore2 = difficultyList[level.ratingScore2] ?? "Unknown";
+function postProcessJSON(save: any){
+    if(save.stats){
+        for(const k of Object.keys(save.stats)){
+            if(statKeys[k]){
+                save.stats[statKeys[k]] = parseInt(save.stats[k]);
+                delete save.stats[k];
+            }
+        }
+    }
+    if(save.levelStars){
+        for(const k of Object.keys(save.levelStars)){
+            save.levelStars[k] = parseInt(save.levelStars[k]);
+        }
+    }
+    if(save.dailyStars){
+        for(const k of Object.keys(save.dailyStars)){
+            save.dailyStars[k] = parseInt(save.dailyStars[k]);
         }
     }
     return save;
@@ -161,5 +172,5 @@ function postProcessJSON(save: GDSave){
 export async function saveToJSON(blob: Blob){
     const xml = parseXMLString(await saveToXML(blob));
 
-    return xmlToJson(xml) as GDSave;
+    return postProcessJSON(xmlToJson(xml)) as GDSave;
 }

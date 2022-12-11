@@ -2,6 +2,10 @@ interface KVNumberString {
     [key: number]: string
 }
 
+interface KVNumber {
+    [key: number]: number
+}
+
 interface GDSavekCEK{
     kCEK: number
 }
@@ -26,7 +30,8 @@ export interface GDSaveCompletedLevels {
 
 export interface GDSaveCreatedLevelFolders extends KVNumberString {}
 export interface GDSaveDailyProgress extends KVNumberString {}
-export interface GDSaveDailyStars extends KVNumberString {}
+export interface GDSaveDailyStars extends KVNumber {}
+export interface GDSaveLevelStars extends KVNumber {}
 
 export interface GDSaveDailyRewards{
     [key: string]: GDSaveDailyReward
@@ -73,6 +78,31 @@ export interface GDSaveOnlineLevels {
     [key: number]: GDSaveOnlineLevel | GDSaveOnlineLevelSaved
 }
 
+export interface GDStats {
+    jumps: number,
+    attempts: number,
+    officialLevelsCompleted: number,
+    onlineLevelsCompleted: number,
+    demons: number,
+    stars: number,
+    mapPacks: number,
+    coins: number,
+    destroyedPlayers: number,
+    likedLevels: number,
+    ratedLevels: number,
+    userCoins: number,
+    diamonds: number,
+    orbs: number,
+    completedDailies: number,
+    fireShards: number,
+    iceShards: number,
+    poisonShards: number,
+    shadowShards: number,
+    lavaShards: number,
+    demonKeys: number,
+    totalOrbs: number,
+}
+
 export interface GDSave {
     accountID: number,
     achievements: GDSaveAchievements,
@@ -92,6 +122,10 @@ export interface GDSave {
     dailyProgress2: GDSaveDailyProgress,
     dailyRewards: GDSaveDailyRewards,
     dailyStars: GDSaveDailyStars,
+
+    levelStars: GDSaveLevelStars,
+
+    stats: GDStats,
 
     onlineLevels: GDSaveOnlineLevels
 }

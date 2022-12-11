@@ -168,3 +168,28 @@ export const difficultyList = {
     40: "Harder",
     50: "Insane"
 }
+
+export const statKeys = {
+    1: "jumps",
+    2: "attempts",
+    3: "officialLevelsCompleted",
+    4: "onlineLevelsCompleted",
+    5: "demons",
+    6: "stars",
+    7: "mapPacks",
+    8: "coins",
+    9: "destroyedPlayers",
+    10: "likedLevels",
+    11: "ratedLevels",
+    12: "userCoins",
+    13: "diamonds",
+    14: "orbs",
+    15: "completedDailies",
+    16: "fireShards",
+    17: "iceShards",
+    18: "poisonShards",
+    19: "shadowShards",
+    20: "lavaShards",
+    21: "demonKeys",
+    22: "totalOrbs"
+}

@@ -1,6 +1,6 @@
 {
   "name": "gd-save-decoder",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Decode CC GD stuff into JS Objects",
   "author": "VeproGames",
   "license": "MIT",

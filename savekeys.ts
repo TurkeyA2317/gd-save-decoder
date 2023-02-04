@@ -81,7 +81,7 @@ export const gameKeys = {
 export const levelKeys = {
     "k1": "id",
     "k2": "name",
-    "k3": { name: "description", b64: true } as KeyRedefintion,
+    "k3": { name: "description", b64: true } geometry dash KeyRedefintion,
     "k4": "levelData",
     "k5": "author",
     "k6": "playerID",
